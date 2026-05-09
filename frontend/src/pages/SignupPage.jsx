@@ -2,21 +2,26 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../layouts/AuthLayout";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import { Loader } from "../components/Loader";
 
 export const SignupPage = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "member" });
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setError("");
+      setLoading(true);
       await register(form.name, form.email, form.password, form.role);
+      toast.success("Account created successfully!");
       navigate("/app/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Unable to register");
+      toast.error(err.response?.data?.message || "Unable to register");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,8 +35,12 @@ export const SignupPage = () => {
           <option value="member">Member</option>
           <option value="admin">Admin</option>
         </select>
-        {error && <p className="text-sm text-rose-400">{error}</p>}
-        <button className="w-full rounded-xl bg-gradient-to-r from-accentPurple to-accentViolet py-3 font-medium">Create account</button>
+        <button 
+          disabled={loading}
+          className="w-full flex items-center justify-center rounded-xl bg-gradient-to-r from-accentPurple to-accentViolet py-3 font-medium transition-all hover:opacity-90 active:scale-95 disabled:opacity-70"
+        >
+          {loading ? <Loader className="h-6" /> : "Create account"}
+        </button>
       </form>
       <p className="mt-5 text-sm text-slate-600 dark:text-slate-400">
         Already registered? <Link to="/login" className="text-accentCyan">Sign in</Link>

@@ -7,11 +7,10 @@ import { Modal } from "../components/Modal";
 import { EmptyState } from "../components/EmptyState";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
+import toast from "react-hot-toast";
 
 export const ProjectsPage = () => {
   const { user } = useAuth();
-  const { showToast } = useToast();
   const [projects, setProjects] = useState([]);
   const [form, setForm] = useState({ title: "", description: "" });
   const [openCreate, setOpenCreate] = useState(false);
@@ -37,10 +36,10 @@ export const ProjectsPage = () => {
       await api.post("/projects", form);
       setForm({ title: "", description: "" });
       setOpenCreate(false);
-      showToast("Project created");
+      toast.success("Project created");
       fetchProjects();
     } catch {
-      showToast("Could not create project", "error");
+      toast.error("Could not create project");
     }
   };
 
@@ -50,20 +49,20 @@ export const ProjectsPage = () => {
       await api.put(`/projects/${editingProject._id}`, form);
       setForm({ title: "", description: "" });
       setEditingProject(null);
-      showToast("Project updated");
+      toast.success("Project updated");
       fetchProjects();
     } catch {
-      showToast("Could not update project", "error");
+      toast.error("Could not update project");
     }
   };
 
   const deleteProject = async (projectId) => {
     try {
       await api.delete(`/projects/${projectId}`);
-      showToast("Project deleted");
+      toast.success("Project deleted");
       fetchProjects();
     } catch {
-      showToast("Could not delete project", "error");
+      toast.error("Could not delete project");
     }
   };
 

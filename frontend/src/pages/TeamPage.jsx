@@ -2,20 +2,18 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import api from "../services/api";
-import { Modal } from "../components/Modal";
 import { EmptyState } from "../components/EmptyState";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
+import toast from "react-hot-toast";
+import { InviteTeamModal } from "../components/InviteTeamModal";
 
 export const TeamPage = () => {
   const { user } = useAuth();
-  const { showToast } = useToast();
   const [projects, setProjects] = useState([]);
   const [members, setMembers] = useState([]);
   const [users, setUsers] = useState([]);
   const [projectId, setProjectId] = useState("");
-  const [memberId, setMemberId] = useState("");
   const [openInvite, setOpenInvite] = useState(false);
   const [loadingMembers, setLoadingMembers] = useState(true);
 
@@ -37,19 +35,7 @@ export const TeamPage = () => {
       .finally(() => setLoadingMembers(false));
   }, [projectId]);
 
-  const inviteMember = async (event) => {
-    event.preventDefault();
-    try {
-      await api.post(`/projects/${projectId}/members`, { memberId });
-      setMemberId("");
-      setOpenInvite(false);
-      showToast("Member invited");
-      const { data } = await api.get(`/projects/${projectId}/members`);
-      setMembers(data.data);
-    } catch {
-      showToast("Could not invite member", "error");
-    }
-  };
+  // Removed old inviteMember function since we now use InviteTeamModal
 
   return (
     <DashboardLayout>
@@ -82,21 +68,8 @@ export const TeamPage = () => {
           ))}
         </div>
       </div>
-      <Modal open={openInvite && user?.role === "admin"} title="Invite Member" onClose={() => setOpenInvite(false)}>
-        <form className="space-y-3" onSubmit={inviteMember}>
-          <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3" value={memberId} onChange={(e) => setMemberId(e.target.value)} required>
-            <option value="">Select member</option>
-            {users
-              .filter((user) => !members.some((member) => member._id === user._id))
-              .map((user) => (
-                <option key={user._id} value={user._id}>
-                  {user.name} ({user.role})
-                </option>
-              ))}
-          </select>
-          <button className="w-full rounded-xl bg-gradient-to-r from-accentPurple to-accentViolet py-3">Invite to Project</button>
-        </form>
-      </Modal>
+
+      <InviteTeamModal open={openInvite && user?.role === "admin"} onClose={() => setOpenInvite(false)} />
     </DashboardLayout>
   );
 };

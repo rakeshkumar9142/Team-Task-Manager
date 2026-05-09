@@ -8,11 +8,11 @@ import { PriorityBadge } from "../components/PriorityBadge";
 import { StatusBadge } from "../components/StatusBadge";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
+import toast from "react-hot-toast";
+import { AITaskBreakdown } from "../components/AITaskBreakdown";
 
 export const TasksPage = () => {
   const { user } = useAuth();
-  const { showToast } = useToast();
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -70,26 +70,28 @@ export const TasksPage = () => {
       });
       setOpenCreate(false);
       setForm({ title: "", description: "", priority: "medium", dueDate: "", assignedTo: members[0]?._id || "" });
-      showToast("Task created");
+      toast.success("Task created");
       refreshTasks();
     } catch {
-      showToast("Could not create task", "error");
+      toast.error("Could not create task");
     }
   };
 
   const updateStatus = async (taskId, status) => {
     try {
       await api.patch(`/tasks/${taskId}/status`, { status });
-      showToast("Task status updated");
+      toast.success("Task status updated");
       refreshTasks();
     } catch {
-      showToast("Could not update task", "error");
+      toast.error("Could not update task");
     }
   };
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
+        <AITaskBreakdown />
+
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-3xl font-semibold">Task Management</h1>
           <div className="flex gap-2">

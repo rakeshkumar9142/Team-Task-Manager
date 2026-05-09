@@ -5,6 +5,7 @@ import { DashboardLayout } from "../layouts/DashboardLayout";
 import api from "../services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from "recharts";
 import { EmptyState } from "../components/EmptyState";
+import { ActivityTimeline } from "../components/ActivityTimeline";
 
 const StatCard = ({ title, value, color }) => (
   <motion.div whileHover={{ y: -4 }} className="glass rounded-2xl p-5">
@@ -105,31 +106,24 @@ export const DashboardPage = () => {
             </div>
           </div>
         </div>
-        <div className="glass rounded-2xl p-5">
-          <h2 className="text-lg font-medium">Recent Activity</h2>
-          <div className="mt-4 space-y-3">
-            {loading && <p className="text-sm text-slate-400">Loading analytics...</p>}
-            {!loading && stats.recentActivity.length === 0 && (
-              <EmptyState title="No activity yet" message="As soon as your team updates tasks, activity appears here." />
-            )}
-            {stats.recentActivity.map((activity) => (
-              <div key={activity.id} className="rounded-xl bg-white/5 px-4 py-3 text-sm">
-                {activity.action} • {activity.assignedTo}
-              </div>
-            ))}
+        <div className="grid gap-4 lg:grid-cols-2">
+          <ActivityTimeline />
+          <div className="glass rounded-2xl p-5">
+            <h2 className="text-lg font-medium flex items-center gap-2">
+              <Sparkles className="text-accentViolet" size={20} />
+              AI Assistant Widget
+            </h2>
+            <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
+              Recommended: Move 2 high-priority tasks from Monday to Friday sprint to avoid deadline congestion.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full bg-accentPurple/20 px-3 py-1 text-accentPurple cursor-pointer hover:bg-accentPurple/30 transition-colors">Auto-prioritize</span>
+              <span className="rounded-full bg-accentCyan/20 px-3 py-1 text-accentCyan cursor-pointer hover:bg-accentCyan/30 transition-colors">Balance workload</span>
+              <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-emerald-400 cursor-pointer hover:bg-emerald-500/30 transition-colors">Generate daily summary</span>
+            </div>
           </div>
         </div>
-        <div className="glass rounded-2xl p-5">
-          <h2 className="text-lg font-medium">AI Assistant Widget</h2>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            Recommended: Move 2 high-priority tasks from Monday to Friday sprint to avoid deadline congestion.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-full bg-accentPurple/20 px-3 py-1">Auto-prioritize</span>
-            <span className="rounded-full bg-accentCyan/20 px-3 py-1">Balance workload</span>
-            <span className="rounded-full bg-emerald-500/20 px-3 py-1">Generate daily summary</span>
-          </div>
-        </div>
+
       </div>
     </DashboardLayout>
   );
