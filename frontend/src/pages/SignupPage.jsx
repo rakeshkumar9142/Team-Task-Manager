@@ -23,17 +23,17 @@ export const SignupPage = () => {
   return (
     <AuthLayout title="Create account" subtitle="Start managing placement teams like a startup.">
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3" placeholder="Name" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} required />
-        <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3" placeholder="Email" type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} required />
-        <input className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3" placeholder="Password" type="password" value={form.password} onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))} required />
-        <select className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3" value={form.role} onChange={(e) => setForm((p) => ({ ...p, role: e.target.value }))}>
+        <input className="w-full rounded-xl border border-slate-300/30 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5" placeholder="Name" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} required />
+        <input className="w-full rounded-xl border border-slate-300/30 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5" placeholder="Email" type="email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} required />
+        <input className="w-full rounded-xl border border-slate-300/30 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5" placeholder="Password" type="password" value={form.password} onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))} required />
+        <select className="w-full rounded-xl border border-slate-300/30 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-white/5" value={form.role} onChange={(e) => setForm((p) => ({ ...p, role: e.target.value }))}>
           <option value="member">Member</option>
           <option value="admin">Admin</option>
         </select>
         {error && <p className="text-sm text-rose-400">{error}</p>}
         <button className="w-full rounded-xl bg-gradient-to-r from-accentPurple to-accentViolet py-3 font-medium">Create account</button>
       </form>
-      <p className="mt-5 text-sm text-slate-400">
+      <p className="mt-5 text-sm text-slate-600 dark:text-slate-400">
         Already registered? <Link to="/login" className="text-accentCyan">Sign in</Link>
       </p>
     </AuthLayout>
