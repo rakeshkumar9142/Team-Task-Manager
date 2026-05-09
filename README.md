@@ -9,17 +9,11 @@ A premium SaaS-style full-stack web application designed for high-performance te
 ---
 
 ## 🚀 Live Links
-- **Frontend (Live Demo)**: [Insert Vercel Link Here]
-- **Backend API Base URL**: [Insert Backend/Railway Link Here]
+- **Live Demo**: https://team-task-manager-coral-five.vercel.app/
 
 ---
 
 ## 📸 Screenshots
-*(Add real screenshots here before submission)*
-- `[Screenshot 1: Landing Page UI]`
-- `[Screenshot 2: Interactive Dashboard with Analytics]`
-- `[Screenshot 3: AI Task Breakdown Feature]`
-- `[Screenshot 4: Kanban Board and Team Collaboration]`
 
 ---
 
