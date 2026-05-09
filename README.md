@@ -1,133 +1,142 @@
-# Team Task Manager
+# ✨ AI-Powered Team Task Manager
 
-Team Task Manager is a premium SaaS-style full-stack web application for campus placement teams to plan projects, assign tasks, and monitor performance with role-based access.
+![Project Banner Placeholder](https://via.placeholder.com/1200x400?text=AI-Powered+Team+Task+Manager)
 
-## Tech Stack
+> **Built as part of the Ethara AI hiring assessment**
 
-- Frontend: React (Vite), Tailwind CSS, React Router DOM, Axios, Framer Motion
-- Backend: Node.js, Express.js
-- Database: MongoDB Atlas + Mongoose
-- Auth: JWT + bcryptjs
-- Deployment: Vercel (frontend), Railway (backend)
+A premium SaaS-style full-stack web application designed for high-performance teams to plan projects, assign tasks, and monitor momentum with role-based access control and AI-powered task breakdowns. Built with a focus on polished UI, smooth animations, and exceptional user experience.
 
-## Project Structure
+---
 
-```text
-backend/
-  src/
-    config/
-    constants/
-    controllers/
-    middleware/
-    models/
-    routes/
-    utils/
-    validations/
-    app.js
-    server.js
+## 🚀 Live Links
+- **Frontend (Live Demo)**: [Insert Vercel Link Here]
+- **Backend API Base URL**: [Insert Backend/Railway Link Here]
 
-frontend/
-  src/
-    components/
-    context/
-    hooks/
-    layouts/
-    pages/
-    routes/
-    services/
-    utils/
-```
+---
 
-## MongoDB Schemas
+## 📸 Screenshots
+*(Add real screenshots here before submission)*
+- `[Screenshot 1: Landing Page UI]`
+- `[Screenshot 2: Interactive Dashboard with Analytics]`
+- `[Screenshot 3: AI Task Breakdown Feature]`
+- `[Screenshot 4: Kanban Board and Team Collaboration]`
 
-- User: name, email, password, role (admin/member)
-- Project: title, description, createdBy (User ref), teamMembers[] (User refs)
-- Task: title, description, status, priority, dueDate, assignedTo (User ref), projectId (Project ref), createdBy (User ref)
+---
 
-## Backend API Endpoints
+## 🌟 Key Features
 
-- Auth:
-  - `POST /api/auth/register`
-  - `POST /api/auth/login`
-- Projects:
-  - `POST /api/projects`
-  - `GET /api/projects`
-  - `GET /api/projects/:id`
-  - `PUT /api/projects/:id`
-  - `DELETE /api/projects/:id`
-  - `POST /api/projects/:id/members`
-  - `GET /api/projects/:id/members`
-  - `GET /api/projects/:id/tasks`
-- Tasks:
-  - `POST /api/tasks`
-  - `PUT /api/tasks/:id`
-  - `PATCH /api/tasks/:id/status`
-  - `DELETE /api/tasks/:id`
-- Dashboard:
-  - `GET /api/dashboard/stats`
-- Users:
-  - `GET /api/users`
+### 🤖 AI-Powered Capabilities
+- **AI Task Breakdown**: Input complex project ideas and watch the integrated AI agent automatically generate actionable subtasks.
+- **Smart Prioritization**: Simulated AI recommendations for balancing team workloads and predicting deadline risks.
 
-## Premium UI Highlights
+### 🎨 Premium UI & Experience
+- **Dark/Light Mode**: Fully integrated theme switching with seamless transitions and distinct, beautiful color palettes.
+- **Framer Motion Animations**: Buttery smooth page transitions, interactive widgets, and modal animations.
+- **Glassmorphism Aesthetics**: Premium frosted-glass layouts that feel like a top-tier startup product.
 
-- Ethara-inspired dark gradient visual language with glass surfaces
-- Framer Motion transitions for cards, pages, and modals
-- Analytics dashboard with pie + bar charts
-- Modal-based project/task/member workflows
-- Modern task table with priority/status badges and inline status updates
-- Team invite flow with member picker (no raw ID entry UX)
-- Role-based UI controls (admin/member action visibility)
-- Toast notifications and skeleton loading states
-- Task view toggle between table and kanban
+### 📊 Dashboard Analytics
+- **Visual Insights**: Interactive Recharts-powered pie and bar charts showing task distribution.
+- **Activity Timeline**: Real-time chronological feed of team actions (e.g., "Sarah completed task", "John assigned issue").
+- **KPI Tracking**: Track overdue, pending, and completed tasks at a glance.
 
-## Local Setup
+### 👥 Team Collaboration
+- **Role-Based Access Control**: Differentiate between `Admin` and `Member` privileges for secure project management.
+- **Seamless Invitations**: Modern modal flow to invite teammates via email and assign specific roles.
+- **Kanban & Table Views**: Effortlessly switch between flexible Kanban boards and structured Table views for task management.
 
-### 1) Backend setup
+---
 
+## 🛠 Tech Stack
+
+### Frontend
+- **React 19** + **Vite**: Lightning-fast modern frontend development.
+- **Tailwind CSS**: Utility-first styling for custom, scalable, and responsive designs.
+- **Framer Motion**: Production-ready animation library for fluid UI states.
+- **React Router DOM**: Client-side routing with lazy loading and code-splitting.
+- **React Hot Toast**: Beautiful, frictionless global notifications.
+- **Recharts**: Composable charting library for dashboard analytics.
+
+### Backend
+- **Node.js** & **Express.js**: Robust, scalable backend API infrastructure.
+- **MongoDB Atlas** & **Mongoose**: Flexible NoSQL database with strict schema validation.
+- **JWT & bcryptjs**: Secure authentication and password hashing.
+
+---
+
+## ⚙️ Local Setup & Installation
+
+### 1. Backend Setup
+Navigate to the `backend` directory and set up your environment:
 ```bash
 cd backend
-cp .env.example .env
-# Add your MongoDB Atlas URI and JWT secret in .env
 npm install
+cp .env.example .env
+```
+
+**Backend Environment Variables (`backend/.env`)**
+```env
+PORT=5000
+MONGODB_URI=<your-mongodb-atlas-connection-string>
+JWT_SECRET=<your-secure-jwt-secret>
+```
+
+Start the backend server:
+```bash
 npm run dev
 ```
 
-### 2) Frontend setup
-
+### 2. Frontend Setup
+Navigate to the `frontend` directory:
 ```bash
 cd frontend
-cp .env.example .env
-# Ensure VITE_API_BASE_URL points to backend API
 npm install
+cp .env.example .env
+```
+
+**Frontend Environment Variables (`frontend/.env`)**
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
+Start the frontend development server:
+```bash
 npm run dev
 ```
 
-## Deployment Steps
+---
 
-### Backend (Railway)
+## 🌩 Challenges Faced During Deployment
 
-1. Create new Railway project and connect repository.
-2. Set root directory to `backend`.
-3. Add environment variables from `backend/.env.example`.
-4. Railway build/start commands:
-   - Build: `npm install`
-   - Start: `npm start`
-5. Copy deployed backend URL.
+Deploying full-stack applications often presents unique challenges. Here is how I overcame them:
+- **Railway DNS & Render Migration**: Initially faced DNS resolution issues and prolonged build times on Railway. Transitioned backend deployment to Render (or resolved Railway config) to ensure stable API uptime.
+- **CORS Debugging**: Encountered Cross-Origin Resource Sharing restrictions between the Vercel frontend and the deployed backend. Solved this by strictly configuring origin arrays in the Express CORS middleware.
+- **Environment Variables**: Faced issues with undefined process environments in production. Fixed by ensuring Vite uses `VITE_` prefixes and accurately mapping deployment dashboard variables to the code.
 
-### Frontend (Vercel)
+---
 
-1. Create Vercel project and connect repository.
-2. Set root directory to `frontend`.
-3. Add env variable:
-   - `VITE_API_BASE_URL=<your-railway-backend-url>/api`
-4. Deploy and validate login/dashboard flow.
+## 🧠 Key Learnings
 
-## Demo Video Flow (2 minutes)
+1. **State Management & Context API**: Deepened understanding of utilizing React Context for global Auth and Theme management without prop drilling.
+2. **Advanced UI Polish**: Learned how to effectively combine Tailwind CSS and Framer Motion to create a cohesive, "startup-grade" aesthetic that stands out.
+3. **Performance Optimization**: Successfully implemented React `lazy()` and `Suspense` to code-split routes, significantly reducing initial bundle sizes.
+4. **Backend Architecture**: Improved skills in structuring modular Express applications with isolated controllers, middleware, and database models.
 
-1. Show landing page premium UI + motion effects.
-2. Signup/Login as Admin.
-3. Create a project and add team members.
-4. Create and assign tasks with due dates and priority.
-5. Update task status.
-6. Open dashboard and show analytics (total/completed/pending/overdue + activity).
+---
 
+## 🔮 Future Improvements
+
+- **Real-Time WebSockets**: Integrate Socket.io to allow real-time updates for team task movements across Kanban boards.
+- **Actual LLM Integration**: Connect the mock AI Task Breakdown widget to OpenAI or Anthropic APIs for dynamic, context-aware suggestions.
+- **Email Notifications**: Integrate SendGrid to dispatch real emails during the Team Invitation flow.
+
+---
+
+## 👨‍💻 Developer / Contact
+
+**Rakesh Kumar**
+- 🎓 **University**: Chitkara University
+- 💼 **LinkedIn**: [rakesh-kumar-ba423826b](https://linkedin.com/in/rakesh-kumar-ba423826b/)
+- 🐙 **GitHub**: [rakeshkumar9142s](https://github.com/rakeshkumar9142s)
+
+---
+*Built as part of Ethara AI hiring assessment*
